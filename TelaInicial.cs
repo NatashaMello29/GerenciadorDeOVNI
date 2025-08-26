@@ -44,7 +44,23 @@ namespace GerenciadorDeOVNI
 
                 // Instanciar o OVNI:
                 BibliotecaOVNI.OVNI ovni = new BibliotecaOVNI.OVNI(maxTripulantes, maxAbduzidos, planetaOrigem);
+
+                // Instanciar a janela "gerenciador" para conseguir chama-la:
+                Gerenciador gerenciador = new Gerenciador(ovni);
+
+                //Esconder janela atual:
+                Hide();
+
+                // Abrir a janela do "gerenciador":
+                gerenciador.ShowDialog();
+
+                // Mostrar novamente a janela atual após a anterior fechar:
+                Show();
             }
         }
+
+       
+
+        
     }
 }
