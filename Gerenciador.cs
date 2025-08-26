@@ -46,7 +46,22 @@ namespace GerenciadorDeOVNI
             grbPlaneta.Enabled = ovni.Situacao;
             grbTripulantes.Enabled = ovni.Situacao;
 
+            // Verificar se a nave está na Terra:
+            if (ovni.PlanetaAtual == "Terra")
+            {
+                // Mudar Imagem
+                pibTerra.Image = Properties.Resources.pictureBoxTerra;
+            }
+            else
+            {
+                
+                    pibTerra.Image = null;
+               
+               
+            }
+
         }
+
 
         private void btnLigar_Click(object sender, EventArgs e)
         {
@@ -94,6 +109,90 @@ namespace GerenciadorDeOVNI
             }
             AtualizarInformacoes();
 
+        }
+
+        private void btnRemoverTripulantes_Click(object sender, EventArgs e)
+        {
+            if (ovni.RemoverTripulante())
+            {
+                MessageBox.Show("Tripulante removido!",
+                    "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Não é possivel mais remover tripulantes!",
+                   "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            AtualizarInformacoes();
+        }
+
+        private void btnAddAbduzidos_Click(object sender, EventArgs e)
+        {
+            if (ovni.Abduzir())
+            {
+                MessageBox.Show("Tripulante Abduzido!",
+                    "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Tripulante não Abduzido!",
+                   "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            AtualizarInformacoes();
+        }
+
+        private void btnRemoverAbduzidos_Click(object sender, EventArgs e)
+        {
+            if (ovni.Desabduzir())
+            {
+                MessageBox.Show("Tripulante Desabduzido!",
+                    "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Tripulante não Desabduzido!",
+                   "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            AtualizarInformacoes();
+        }
+
+        private void btnMudarPlaneta_Click(object sender, EventArgs e)
+        {
+            if (ovni.MudarPlaneta(cmbPlanetas.Text))
+            {
+                // Verificação especial para quando está indo para a Terra
+                if (cmbPlanetas.Text.ToUpper() == "TERRA")
+                {
+                    MessageBox.Show("🚀 Você está viajando para a Terra! Prepare-se para a chegada! 🌍",
+                        "Viagem para Terra", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Você está indo a outro Planeta!",
+                        "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Você não fez a viagem ao outro Planeta!",
+                   "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            AtualizarInformacoes();
+        }
+
+        private void btnRetornar_Click(object sender, EventArgs e)
+        {
+            if (ovni.RetornarAoPlanetaDeOrigem())
+            {
+                MessageBox.Show("Você Retornou ao seu Planeta Natal!",
+                    "Sucesso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Você não retornou ao Planeta!",
+                   "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            AtualizarInformacoes();
         }
     }
 
